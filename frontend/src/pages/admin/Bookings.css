@@ -1,0 +1,666 @@
+﻿/* ==========================================================================
+   HOTELHUB — ADMIN BOOKINGS
+   Premium, clean hotel-management interface
+   ========================================================================== */
+
+.admin-bookings-page {
+  min-height: calc(100vh - 150px);
+  background: #f6f8fb;
+  padding: 56px 0 80px;
+  color: #17243b;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.admin-bookings-header {
+  margin-bottom: 34px;
+}
+
+.admin-bookings-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #b08d57;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.admin-bookings-header h1 {
+  margin: 0;
+  color: #14213a;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.admin-bookings-description {
+  max-width: 650px;
+  margin: 12px 0 0;
+  color: #69758a;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   Summary Cards
+   ========================================================================== */
+
+.admin-bookings-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.admin-bookings-summary-card {
+  position: relative;
+  min-height: 112px;
+  padding: 22px 22px 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(20, 33, 58, 0.045);
+}
+
+.admin-bookings-summary-card::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #d9dee7;
+  content: "";
+}
+
+.admin-bookings-summary-card--pending::after {
+  background: #d5a33d;
+}
+
+.admin-bookings-summary-card--confirmed::after {
+  background: #3f8f6b;
+}
+
+.admin-bookings-summary-card--completed::after {
+  background: #356fae;
+}
+
+.admin-bookings-summary-card--cancelled::after {
+  background: #c95b5b;
+}
+
+.admin-bookings-summary-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #788397;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.admin-bookings-summary-value {
+  display: block;
+  color: #16233c;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Loading Skeleton
+   ========================================================================== */
+
+.admin-bookings-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-bookings-skeleton-card {
+  min-height: 105px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e6ebf2;
+  border-radius: 14px;
+}
+
+.admin-bookings-skeleton-line {
+  width: 42%;
+  height: 12px;
+  margin-bottom: 13px;
+  border-radius: 5px;
+  background: #edf1f5;
+  animation: bookingSkeletonPulse 1.4s ease-in-out infinite;
+}
+
+.admin-bookings-skeleton-line--wide {
+  width: 68%;
+}
+
+.admin-bookings-skeleton-line--short {
+  width: 25%;
+  margin-bottom: 0;
+}
+
+@keyframes bookingSkeletonPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   States
+   ========================================================================== */
+
+.admin-bookings-state {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 24px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e4e9f0;
+  border-radius: 16px;
+}
+
+.admin-bookings-state svg {
+  margin-bottom: 16px;
+  color: #b08d57;
+}
+
+.admin-bookings-state h2 {
+  margin: 0 0 8px;
+  color: #17243b;
+  font-size: 22px;
+}
+
+.admin-bookings-state p {
+  max-width: 430px;
+  margin: 0 0 20px;
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.admin-bookings-state--error svg {
+  color: #c95b5b;
+}
+
+/* ==========================================================================
+   Table Container
+   ========================================================================== */
+
+.admin-bookings-table-wrapper {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e1e7ef;
+  border-radius: 16px;
+  box-shadow: 0 5px 24px rgba(20, 33, 58, 0.045);
+}
+
+.admin-bookings-table {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-bookings-table thead {
+  background: #f8fafc;
+}
+
+.admin-bookings-table th {
+  padding: 16px 18px;
+  color: #68758a;
+  border-bottom: 1px solid #e2e7ee;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.admin-bookings-table td {
+  padding: 18px;
+  color: #455269;
+  border-bottom: 1px solid #edf0f4;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.admin-booking-row:last-child td {
+  border-bottom: none;
+}
+
+.admin-booking-row {
+  transition: background 0.18s ease;
+}
+
+.admin-booking-row:hover {
+  background: #fbfcfe;
+}
+
+/* ==========================================================================
+   Guest
+   ========================================================================== */
+
+.admin-bookings-guest {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  gap: 5px;
+}
+
+.admin-bookings-guest-name {
+  color: #1a2942;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-bookings-guest-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #8590a1;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.admin-bookings-guest-email svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Inline Information
+   ========================================================================== */
+
+.admin-bookings-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #59667a;
+  white-space: nowrap;
+}
+
+.admin-bookings-inline svg {
+  flex-shrink: 0;
+  color: #9aa5b5;
+}
+
+.admin-bookings-inline--price {
+  color: #182842;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Status
+   ========================================================================== */
+
+.booking-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 94px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.booking-status.pending {
+  color: #916b1d;
+  background: #fff8e7;
+  border-color: #f2dfae;
+}
+
+.booking-status.confirmed {
+  color: #287253;
+  background: #edf8f2;
+  border-color: #cce8d9;
+}
+
+.booking-status.completed {
+  color: #2e659d;
+  background: #edf5fc;
+  border-color: #d0e3f4;
+}
+
+.booking-status.cancelled {
+  color: #a74646;
+  background: #fff0f0;
+  border-color: #f0d0d0;
+}
+
+.admin-bookings-status-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 170px;
+}
+
+.admin-bookings-status-select {
+  min-width: 112px;
+  padding: 7px 28px 7px 9px;
+  color: #344258;
+  background-color: #ffffff;
+  background-position: right 8px center;
+  border: 1px solid #dce2ea;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.admin-bookings-status-select:hover {
+  border-color: #b9c3d1;
+}
+
+.admin-bookings-status-select:focus {
+  border-color: #49688f;
+  box-shadow: 0 0 0 3px rgba(73, 104, 143, 0.1);
+}
+
+.admin-bookings-status-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Actions
+   ========================================================================== */
+
+.admin-bookings-actions-col {
+  width: 72px;
+  text-align: center !important;
+}
+
+.admin-booking-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-bookings-icon-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: #667286;
+  background: #ffffff;
+  border: 1px solid #dce2e9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.admin-bookings-icon-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.admin-bookings-icon-btn--danger {
+  color: #b34f4f;
+}
+
+.admin-bookings-icon-btn--danger:hover:not(:disabled) {
+  color: #a33e3e;
+  background: #fff4f4;
+  border-color: #e8bebe;
+}
+
+.admin-bookings-icon-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-bookings-spin {
+  animation: bookingSpin 0.85s linear infinite;
+}
+
+@keyframes bookingSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Outline Button
+   ========================================================================== */
+
+.admin-bookings-btn-outline {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  color: #203452;
+  background: #ffffff;
+  border: 1px solid #ccd5e1;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.admin-bookings-btn-outline:hover {
+  color: #ffffff;
+  background: #1b2b4b;
+  border-color: #1b2b4b;
+}
+
+/* ==========================================================================
+   Mobile / Tablet Cards
+   ========================================================================== */
+
+.admin-bookings-cards {
+  display: none;
+}
+
+.admin-booking-card {
+  background: #ffffff;
+  border: 1px solid #e1e7ef;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(20, 33, 58, 0.045);
+  overflow: hidden;
+}
+
+.admin-booking-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.admin-booking-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 20px;
+}
+
+.admin-booking-card-body .admin-bookings-inline {
+  min-width: 0;
+  white-space: normal;
+  line-height: 1.45;
+}
+
+.admin-booking-card-body .admin-bookings-inline--price {
+  grid-column: 1 / -1;
+  padding-top: 5px;
+  color: #1b2b4b;
+  font-size: 15px;
+}
+
+.admin-booking-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 20px;
+  background: #fafbfd;
+  border-top: 1px solid #edf0f4;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1150px) {
+  .admin-bookings-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-bookings-summary-card {
+    min-height: 105px;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-bookings-page {
+    padding: 44px 0 65px;
+  }
+
+  .admin-bookings-table-wrapper {
+    display: none;
+  }
+
+  .admin-bookings-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .admin-bookings-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-bookings-page {
+    padding: 34px 0 55px;
+  }
+
+  .admin-bookings-header {
+    margin-bottom: 26px;
+  }
+
+  .admin-bookings-header h1 {
+    font-size: 30px;
+  }
+
+  .admin-bookings-description {
+    font-size: 14px;
+  }
+
+  .admin-bookings-summary {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .admin-bookings-summary-card {
+    min-height: 95px;
+    padding: 17px;
+    border-radius: 12px;
+  }
+
+  .admin-bookings-summary-value {
+    font-size: 25px;
+  }
+
+  .admin-bookings-summary-label {
+    font-size: 11px;
+  }
+
+  .admin-booking-card-top {
+    padding: 17px;
+  }
+
+  .admin-booking-card-body {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 17px;
+  }
+
+  .admin-booking-card-body .admin-bookings-inline--price {
+    grid-column: auto;
+  }
+
+  .admin-booking-card-footer {
+    padding: 13px 17px;
+  }
+
+  .admin-bookings-status-select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-bookings-state {
+    min-height: 260px;
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .admin-bookings-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-booking-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-booking-card-footer {
+    align-items: stretch;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-booking-row,
+  .admin-bookings-icon-btn,
+  .admin-bookings-status-select,
+  .admin-bookings-btn-outline {
+    transition: none;
+  }
+
+  .admin-bookings-skeleton-line,
+  .admin-bookings-spin {
+    animation: none;
+  }
+}

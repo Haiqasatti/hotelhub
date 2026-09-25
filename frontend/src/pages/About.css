@@ -1,0 +1,215 @@
+/* ==========================================================================
+   About page
+   Built on the shared HotelHub design tokens and utility classes already
+   defined in index.css (--primary, --accent, --surface, --border, .section,
+   .container, .section-eyebrow, .btn, .booking-cta). New rules here are
+   scoped under .about- so they never collide with Home/Hotels styles.
+   ========================================================================== */
+
+.about-page {
+  background: var(--background);
+  overflow-x: hidden;
+}
+
+/* -- 1. Hero -- */
+
+.about-hero {
+  padding-top: 120px;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.about-hero-text h1 {
+  margin: 14px 0 20px;
+}
+
+.about-hero-lead {
+  max-width: 480px;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.about-hero-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-hero-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+/* -- 2. Our Story -- */
+
+.about-story {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-story-inner {
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.about-story-inner h2 {
+  margin: 14px 0 22px;
+}
+
+.about-story-inner p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.about-story-inner p + p {
+  margin-top: 18px;
+}
+
+/* -- 3. Why HotelHub -- */
+
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.about-feature-card {
+  padding: 34px 28px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-feature-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--primary);
+}
+
+.about-feature-card h3 {
+  margin-bottom: 10px;
+  font-size: 19px;
+}
+
+.about-feature-card p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* -- 4. Experience Section -- */
+
+.about-experience {
+  background: var(--surface);
+}
+
+.about-experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.about-experience-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-experience-image img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+}
+
+.about-experience-text h2 {
+  margin: 14px 0 26px;
+}
+
+.about-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.about-checklist svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--accent-dark);
+}
+
+/* -- Responsive -- */
+
+@media (max-width: 1000px) {
+  .about-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .about-hero-grid,
+  .about-experience-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .about-experience-image {
+    order: -1;
+  }
+
+  .about-hero-image img,
+  .about-experience-image img {
+    height: 320px;
+  }
+
+  .about-hero-lead {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-hero {
+    padding-top: 90px;
+  }
+
+  .about-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-feature-card {
+    padding: 26px 22px;
+  }
+
+  .about-hero-image img,
+  .about-experience-image img {
+    height: 260px;
+  }
+}
