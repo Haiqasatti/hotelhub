@@ -64,6 +64,12 @@ app.use("/api/reviews", reviewRoutes);
 const PORT = process.env.PORT || 5000;
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`HotelHub server is running on port ${PORT}`);
-});
+// Start the server locally
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`HotelHub server is running on port ${PORT}`);
+  });
+}
+
+// Export the Express app for Vercel
+module.exports = app;
