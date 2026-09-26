@@ -23,6 +23,18 @@ app.use(cors());
 // Enable express.json() so we can read JSON data sent in request bodies
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "HotelHub API is running successfully",
+  });
+});
+
+app.get("/api/test", (req, res) => {
+  res.json({
+    message: "HotelHub API is working",
+  });
+});
+
 // Connect to MongoDB when an API request arrives
 app.use(async (req, res, next) => {
   try {
@@ -36,18 +48,6 @@ app.use(async (req, res, next) => {
       error: error.message,
     });
   }
-});
-
-app.get("/", (req, res) => {
-  res.json({
-    message: "HotelHub API is running successfully",
-  });
-});
-
-// Simple test route to check that the API is working
-// Visit: GET http://localhost:5000/api/test
-app.get("/api/test", (req, res) => {
-  res.json({ message: "HotelHub API is working" });
 });
 
 // Auth routes: handles register, login, and me
