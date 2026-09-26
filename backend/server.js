@@ -38,6 +38,12 @@ app.use(async (req, res, next) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "HotelHub API is running successfully",
+  });
+});
+
 // Simple test route to check that the API is working
 // Visit: GET http://localhost:5000/api/test
 app.get("/api/test", (req, res) => {
