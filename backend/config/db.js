@@ -1,22 +1,22 @@
-// Import mongoose to talk to MongoDB
 const mongoose = require("mongoose");
 
-// Async function that connects to our MongoDB database
-const connectDB = async () => {
-  try {
-    // Try to connect using the connection string stored in .env
-    await mongoose.connect(process.env.MONGO_URI);
+let isConnected = false;
 
-    // Runs only if the connection succeeds
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+
+  try {
+    const connection = await mongoose.connect(process.env.MONGO_URI);
+
+    isConnected = connection.connections[0].readyState === 1;
+
     console.log("MongoDB connected successfully");
   } catch (error) {
-    // Runs if something goes wrong (bad URI, no internet, etc.)
     console.error("MongoDB connection failed:", error.message);
-
-    // Stop the app since the database is required to run properly
-    process.exit(1);
+    throw error;
   }
 };
 
-// Export connectDB so it can be used in server.js
 module.exports = connectDB;

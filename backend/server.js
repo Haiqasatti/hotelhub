@@ -14,9 +14,6 @@ const reviewRoutes = require("./routes/reviewRoutes"); // Routes for review mana
 // Load environment variables from .env file
 dotenv.config();
 
-// Connect to MongoDB before starting the server
-connectDB();
-
 // Create the Express application
 const app = express();
 
@@ -25,6 +22,21 @@ app.use(cors());
 
 // Enable express.json() so we can read JSON data sent in request bodies
 app.use(express.json());
+
+// Connect to MongoDB when an API request arrives
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection error:", error.message);
+
+    res.status(500).json({
+      message: "Database connection failed",
+      error: error.message,
+    });
+  }
+});
 
 // Simple test route to check that the API is working
 // Visit: GET http://localhost:5000/api/test
